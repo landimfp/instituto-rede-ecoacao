@@ -1,0 +1,587 @@
+/* =========================================================
+   INSTITUTO REDE ECOAÇÃO — ESTILOS BASE
+   Este arquivo aplica as variáveis definidas em design-system.css.
+   Nenhum valor de cor, fonte ou espaçamento é escrito "solto"
+   aqui: tudo referencia uma variável do Design System.
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--space-6);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-neutral-900);
+  background-color: var(--color-neutral-100);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-primary-500);
+}
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background-color: var(--color-primary-700);
+  color: var(--color-neutral-0);
+  padding: var(--space-3) var(--space-4);
+  position: relative;
+  box-shadow: var(--sombra-md);
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-neutral-0);
+  text-decoration: none;
+  font-family: var(--font-family-destaque);
+  font-weight: bold;
+  font-size: var(--font-size-base);
+  letter-spacing: 0.01em;
+}
+
+.marca-simbolo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-image: linear-gradient(135deg, var(--color-secondary-400), var(--color-secondary-600));
+  color: var(--color-neutral-900);
+  font-family: var(--font-family-destaque);
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  box-shadow: var(--sombra-sm);
+}
+
+/* ---- Menu principal (desktop) ---- */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu > li {
+  position: relative;
+}
+
+.nav-menu a {
+  position: relative;
+  color: var(--color-neutral-0);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  padding-bottom: var(--space-1);
+}
+
+.nav-menu > li > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-secondary-400);
+  transition: width var(--transicao-padrao) ease;
+}
+
+.nav-menu > li > a:hover::after,
+.nav-menu > li > a:focus-visible::after {
+  width: 100%;
+}
+
+.nav-menu a[aria-current="page"] {
+  color: var(--color-secondary-400);
+}
+
+/* ---- Submenu (dropdown) ----
+   :hover cobre o mouse; :focus-within cobre o teclado (Tab). */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 190px;
+  margin: 0;
+  padding: var(--space-2) 0;
+  list-style: none;
+  background-color: var(--color-neutral-0);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-lg);
+
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity var(--transicao-padrao) ease,
+              transform var(--transicao-padrao) ease,
+              visibility var(--transicao-padrao) ease;
+}
+
+.tem-submenu:hover .submenu,
+.tem-submenu:focus-within .submenu {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.submenu a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-neutral-900);
+  font-size: var(--font-size-sm);
+  font-weight: normal;
+}
+
+.submenu a:hover,
+.submenu a:focus-visible {
+  background-color: var(--color-primary-200);
+}
+
+/* ---- Botão hambúrguer (mobile) ---- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+
+  /* No mobile, o <nav> que vem depois deste botão perde a
+     largura no fluxo (seu conteúdo é position: absolute), mas
+     ainda conta como item flex do .nav-bar. Sem este
+     margin-left: auto, o space-between do .nav-bar empurraria
+     o botão para o meio do espaço, e não para a borda direita. */
+  margin-left: auto;
+}
+
+.menu-toggle .linha {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-neutral-0);
+  border-radius: 2px;
+  transition: transform var(--transicao-padrao) ease,
+              opacity var(--transicao-padrao) ease;
+}
+
+/* Ao abrir: as duas linhas externas giram formando um "X"
+   e a linha central desaparece. */
+.nav-bar.menu-aberto .menu-toggle .linha:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav-bar.menu-aberto .menu-toggle .linha:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-bar.menu-aberto .menu-toggle .linha:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ---- Menu mobile (até 700px) ---- */
+@media (max-width: 700px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background-color: var(--color-primary-700);
+    padding: 0 var(--space-4);
+
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height var(--transicao-padrao) ease;
+  }
+
+  .nav-bar.menu-aberto .nav-menu {
+    max-height: 560px;
+    visibility: visible;
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+
+  .nav-menu > li {
+    width: 100%;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: var(--space-2) 0;
+  }
+
+  /* No mobile, o submenu já nasce visível (empilhado),
+     sem posicionamento absoluto sobre o conteúdo. */
+  .submenu {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    box-shadow: none;
+    background-color: var(--color-primary-500);
+    padding-left: var(--space-3);
+  }
+
+  .submenu a {
+    color: var(--color-neutral-0);
+  }
+}
+
+/* =========================================================
+   GRID DE 12 COLUNAS
+   Usada na estrutura externa e bidimensional das páginas.
+   O Flexbox continua responsável pelos alinhamentos internos.
+   ========================================================= */
+
+main {
+  max-width: 1100px;
+  margin: var(--space-5) auto;
+  padding: 0 var(--space-4);
+}
+
+.grade-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+section {
+  margin-bottom: var(--space-6);
+}
+
+h2 {
+  font-family: var(--font-family-destaque);
+  font-size: var(--font-size-lg);
+  color: var(--color-primary-700);
+  position: relative;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3rem;
+  height: 4px;
+  border-radius: var(--raio-sm);
+  background-color: var(--color-secondary-400);
+}
+
+h3 {
+  font-family: var(--font-family-destaque);
+  color: var(--color-primary-700);
+}
+
+/* ---- Banner de topo: colado direto no cabeçalho, sem
+   nenhuma separação (margem, raio ou sombra) entre os dois. ---- */
+.banner-topo {
+  margin: 0;
+}
+
+.banner-topo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1376 / 768; /* proporção real dos banners — sem cortar o texto da imagem */
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---- Imagens em destaque dentro do conteúdo (quando houver) ---- */
+figure {
+  margin: 0;
+}
+
+figure img {
+  display: block;
+  width: 100%;
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-md);
+  object-fit: cover;
+}
+
+figcaption {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-600);
+  margin-top: var(--space-2);
+}
+
+/* ---- Cartões (article) ---- */
+article {
+  background-color: var(--color-neutral-0);
+  border-radius: var(--raio-md);
+  border-top: 4px solid var(--color-primary-500);
+  box-shadow: var(--sombra-sm);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  transition: transform var(--transicao-padrao) ease,
+              box-shadow var(--transicao-padrao) ease;
+}
+
+article:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-md);
+}
+
+/* ---- Lista de pilares: marcador colorido no lugar do bullet padrão ---- */
+#pilares ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#pilares li {
+  position: relative;
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+#pilares li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-secondary-400);
+}
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
+fieldset {
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-sm);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+  background-color: var(--color-neutral-0);
+}
+
+legend {
+  color: var(--color-primary-700);
+  font-family: var(--font-family-destaque);
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  margin-bottom: var(--space-1);
+}
+
+input,
+select {
+  width: 100%;
+  padding: var(--space-2);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--raio-sm);
+  background-color: var(--color-neutral-0);
+  transition: border-color var(--transicao-padrao) ease,
+              box-shadow var(--transicao-padrao) ease,
+              background-color var(--transicao-padrao) ease;
+}
+
+input:hover,
+select:hover {
+  border-color: var(--color-primary-500);
+}
+
+input:focus-visible,
+select:focus-visible {
+  border-color: var(--color-primary-500);
+  outline: 3px solid var(--color-focus);
+  outline-offset: var(--space-1);
+  box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.25);
+}
+
+/* Só avalia depois que o usuário interage com o campo,
+   evitando marcar um campo vazio como erro ao carregar a página. */
+input:user-valid,
+select:user-valid {
+  border-color: var(--color-primary-500);
+  background-color: var(--color-primary-200);
+  box-shadow: 0 0 0 3px rgba(47, 107, 79, 0.15);
+}
+
+input:user-invalid,
+select:user-invalid {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.15);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: var(--space-1);
+}
+
+/* ---- Botões ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--raio-sm);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  background-color: var(--color-secondary-400);
+  color: var(--color-neutral-900);
+  box-shadow: var(--sombra-sm);
+  transition: transform var(--transicao-padrao) ease,
+              background-color var(--transicao-padrao) ease,
+              border-color var(--transicao-padrao) ease,
+              box-shadow var(--transicao-padrao) ease,
+              opacity var(--transicao-padrao) ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background-color: var(--color-secondary-600);
+  color: var(--color-neutral-0);
+  box-shadow: 0 10px 20px rgba(217, 130, 46, 0.35);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+  background-color: var(--color-primary-700);
+  color: var(--color-neutral-0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  transition-duration: var(--transicao-rapida);
+}
+
+.btn:focus-visible {
+  outline: 4px solid var(--color-focus);
+  outline-offset: var(--space-1);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---- Mensagem de retorno do formulário ---- */
+.mensagem-formulario {
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-sm);
+  font-weight: bold;
+  color: var(--color-primary-700);
+  background-color: var(--color-primary-200);
+}
+
+.mensagem-formulario[hidden] {
+  display: none;
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-4);
+  background-color: var(--color-primary-700);
+  color: var(--color-primary-200);
+  font-size: var(--font-size-xs);
+  border-top: 3px solid var(--color-secondary-400);
+}
+
+/* =========================================================
+   RESPONSIVIDADE DO GRID — 5 breakpoints em cascata
+   ========================================================= */
+
+@media (max-width: 1280px) {
+  main { max-width: 100%; }
+  .grade-12 { gap: var(--space-4); }
+}
+
+@media (max-width: 1024px) {
+  .col-7, .col-5 { grid-column: span 6; }
+}
+
+@media (max-width: 768px) {
+  .col-6, .col-7, .col-5 { grid-column: span 12; }
+}
+
+@media (max-width: 600px) {
+  .col-4, .col-8 { grid-column: span 12; }
+}
+
+@media (max-width: 400px) {
+  .grade-12 { gap: var(--space-3); }
+  .brand-logo { font-size: var(--font-size-sm); }
+}
+
+/* =========================================================
+   PREFERÊNCIA POR MENOS ANIMAÇÃO
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 1ms !important;
+  }
+}
