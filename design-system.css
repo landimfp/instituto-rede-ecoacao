@@ -1,0 +1,100 @@
+/* =========================================================
+   INSTITUTO REDE ECOAÇÃO — DESIGN SYSTEM
+   Variáveis nativas do CSS (custom properties) que centralizam
+   as decisões visuais do projeto: cor, tipografia e espaçamento.
+   ========================================================= */
+
+:root {
+
+  /* -----------------------------------------------------
+     1. CORES
+     Estrutura em 3 categorias: primária, secundária e neutra.
+     Cada categoria usa uma escala numérica (100 a 900), do
+     tom mais claro ao mais escuro, para permitir variação de
+     estado (hover, texto, fundo) sem criar cores soltas.
+     ----------------------------------------------------- */
+
+  /* Primária: verde institucional (identidade / sustentabilidade) */
+  --color-primary-700: #1f4f38; /* verde escuro   - cabeçalho, texto de destaque em fundo claro */
+  --color-primary-500: #2f6b4f; /* verde base     - botões, links, ícones de ação */
+  --color-primary-200: #bcd8c6; /* verde claro     - fundos de destaque suaves, hover leve */
+
+  /* Secundária: laranja de acolhimento (chamadas para ação) */
+  --color-secondary-600: #d9822e; /* laranja escuro - hover/estado ativo de botões secundários */
+  --color-secondary-400: #f2a65a; /* laranja base   - selos, alertas de atenção, CTAs */
+
+  /* Neutras: escala de cinza/areia usada em texto, fundo e bordas */
+  --color-neutral-900: #26251f; /* texto principal do corpo        */
+  --color-neutral-600: #5c5c58; /* texto secundário / legendas     */
+  --color-neutral-300: #d8d2c2; /* bordas, divisores               */
+  --color-neutral-100: #f6f3ea; /* fundo geral da página (areia)   */
+  --color-neutral-0:   #ffffff; /* fundo de cartões e superfícies  */
+
+  /* Funcionais: estados de interação e feedback do formulário */
+  --color-focus: #ffb703; /* âmbar — contorno de foco de teclado (:focus-visible) */
+  --color-error: #b3261e; /* vermelho — bordas e mensagens de campo inválido      */
+
+  /* -----------------------------------------------------
+     2. TIPOGRAFIA
+     Escala modular com 5 patamares hierárquicos, baseada em
+     rem (relativa ao tamanho de fonte do navegador, o que
+     favorece a acessibilidade e o zoom do usuário).
+     ----------------------------------------------------- */
+
+  --font-family-base: "Segoe UI", Arial, sans-serif;
+
+  --font-size-xs:   0.75rem;  /* 12px — legendas, rótulos auxiliares (figcaption)      */
+  --font-size-sm:   0.875rem; /* 14px — texto de apoio, placeholders, notas de rodapé  */
+  --font-size-base: 1rem;     /* 16px — corpo de texto (parágrafos, labels de formulário) */
+  --font-size-lg:   1.5rem;   /* 24px — subtítulos (h2 / h3)                            */
+  --font-size-xl:   2.25rem;  /* 36px — título principal da página (h1)                 */
+
+  --line-height-base: 1.6;    /* melhora a legibilidade de parágrafos longos */
+
+  /* -----------------------------------------------------
+     3. ESPAÇAMENTO
+     Escala modular estrita em múltiplos de 8px (0.5rem),
+     garantindo alinhamento consistente entre elementos.
+     ----------------------------------------------------- */
+
+  --space-1: 0.25rem; /* 4px  — espaçamento mínimo (ex: entre ícone e texto)   */
+  --space-2: 0.5rem;  /* 8px  — unidade base da escala                         */
+  --space-3: 1rem;    /* 16px — espaçamento padrão entre elementos de um bloco */
+  --space-4: 1.5rem;  /* 24px — espaçamento entre blocos pequenos              */
+  --space-5: 2rem;    /* 32px — espaçamento entre seções                       */
+  --space-6: 3rem;    /* 48px — espaçamento entre grandes áreas da página      */
+
+  /* -----------------------------------------------------
+     4. TRANSIÇÕES
+     Durações padronizadas para estados de interação
+     (hover, active, foco, abertura de menu).
+     ----------------------------------------------------- */
+  --transicao-padrao: 160ms; /* hover, foco, entrada/saída de submenu e menu mobile */
+  --transicao-rapida: 80ms;  /* estado :active (clique), resposta mais imediata     */
+
+  /* -----------------------------------------------------
+     5. RAIO DE BORDA
+     Escala curta para manter os arredondamentos consistentes
+     entre botões, cartões e imagens.
+     ----------------------------------------------------- */
+  --raio-sm: 4px;  /* botões, campos de formulário       */
+  --raio-md: 10px; /* cartões (article, fieldset)        */
+  --raio-lg: 18px; /* imagens em destaque (banners)       */
+
+  /* -----------------------------------------------------
+     6. SOMBRA
+     Três profundidades, usadas para dar hierarquia visual
+     sem depender de bordas pesadas.
+     ----------------------------------------------------- */
+  --sombra-sm: 0 1px 3px rgba(38, 37, 31, 0.10);
+  --sombra-md: 0 10px 24px rgba(38, 37, 31, 0.14);
+  --sombra-lg: 0 18px 40px rgba(38, 37, 31, 0.18);
+
+  /* -----------------------------------------------------
+     7. FONTE DE DESTAQUE
+     Usada em títulos (h1/h2/h3 e marca), para diferenciar a
+     hierarquia do texto corrido sem abandonar o padrão de
+     fontes de sistema no corpo do texto.
+     ----------------------------------------------------- */
+  --font-family-destaque: "Poppins", var(--font-family-base);
+}
